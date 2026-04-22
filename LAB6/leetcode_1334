@@ -1,0 +1,46 @@
+#define INF 1000000000 
+int findTheCity(int n, int** edges, int edgesSize, int* edgesColSize, int distanceThreshold) {
+    int D[n][n];
+    int i,j,k;
+    for(i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            if(i==j){
+                D[i][j]=0;
+            }
+            else{
+                D[i][j]=INF;
+            }
+        }
+    }
+    for(i=0;i<edgesSize;i++){
+        int u=edges[i][0];
+        int v=edges[i][1];
+        int w=edges[i][2];
+        D[u][v]=w;
+        D[v][u]=w;
+    }
+    for(k=0;k<n;k++){
+        for(i=0;i<n;i++){
+            for(j=0;j<n;j++){
+                if(D[i][k]+D[k][j] < D[i][j]){
+                    D[i][j]=D[i][k]+D[k][j];
+                }
+            }
+        }
+    }
+    int resultCity=-1;
+    int mincount=INF;
+    for(i=0;i<n;i++){
+        int count=0;
+        for(j=0;j<n;j++){
+            if(i!=j && D[i][j] <= distanceThreshold){
+                count++;
+            }
+        }
+        if(count <=mincount){
+            mincount=count;
+            resultCity=i;
+        }
+    }
+    return resultCity;
+}
