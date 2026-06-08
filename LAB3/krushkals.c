@@ -41,15 +41,15 @@ int main() {
 
     printf("\nEdges in MST:\n");
 
-    for(i = 0; i < e && count < n - 1; i++) {
-        int pu = find(u[i]);
-        int pv = find(v[i]);
+    for(i = 0; i < e - 1; i++) {
+        for(j = i+1; j < e ; j++) {
+            if(w[i] > w[j]) {
+                int temp;
 
-        if(pu != pv) {
-            printf("%d -> %d = %d\n", u[i], v[i], w[i]);
-            mincost += w[i];
-            unionSet(pu, pv);
-            count++;
+                temp = w[i]; w[i] = w[j]; w[j] = temp;
+                temp = u[i]; u[i] = u[j]; u[j] = temp;
+                temp = v[i]; v[i] = v[j]; v[j] = temp;
+            }
         }
     }
 
