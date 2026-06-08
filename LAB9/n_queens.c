@@ -66,7 +66,7 @@ int main() {
     printf("Enter number of queens: ");
     scanf("%d", &n);
 
-    solveNQueens(0);
+    solveNQueens(n);
 
     return 0;
 }
